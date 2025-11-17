@@ -1,0 +1,66 @@
+---
+description: 일일 작업 워크플로우
+alwaysApply: true
+priority: 1
+---
+
+# 일일 작업 워크플로우 규칙
+
+## 🚨 자동 실행 규칙 (MANDATORY)
+
+**모든 작업 시작 시 자동 실행**:
+1. 오늘 날짜 확인: `Get-Date -Format "yyyy-MM-dd"`
+2. `daily/YYYY-MM-DD/` 폴더 존재 확인
+3. 없으면 자동 생성 + `tasks.md`, `notes.md` 생성
+4. 작업 파일은 `daily/YYYY-MM-DD/` 폴더에 생성
+
+**자동 실행 코드**:
+```python
+# 모든 작업 시작 전 자동 실행
+from datetime import datetime
+from pathlib import Path
+
+today = datetime.now().strftime('%Y-%m-%d')
+daily_folder = Path(f"daily/{today}")
+daily_folder.mkdir(exist_ok=True)
+
+tasks_file = daily_folder / "tasks.md"
+notes_file = daily_folder / "notes.md"
+
+if not tasks_file.exists():
+    tasks_file.write_text(f"# 📋 {today} 할 일 목록\n\n## 오늘 할 일\n- [ ] \n\n## 완료된 작업\n- \n\n## 메모\n", encoding='utf-8')
+
+if not notes_file.exists():
+    notes_file.write_text(f"# 📝 {today} 메모\n\n## 회의록\n\n## 아이디어\n\n## 레퍼런스\n\n## 다음에 할 일\n", encoding='utf-8')
+```
+
+## 하루 시작 (09:00)
+1. 오늘 날짜 폴더 자동 생성: `daily/YYYY-MM-DD/`
+2. tasks.md 생성: 오늘 할 일 목록
+3. notes.md 생성: 회의록 및 메모
+
+## 파일 생성 규칙
+- 문서: `[날짜]-[카테고리]-[제목].md`
+  예: `2025-01-16-meeting-architecture-design.md`
+  
+- 코드: `[기능명]-[타입].ts`
+  예: `constitution-classifier-algorithm.ts`
+  
+- 임시 파일: `temp-[목적]-[날짜].txt`
+  예: `temp-api-test-0116.txt`
+
+## 작업 완료 시
+- 중요 파일: `active-projects/` 로 이동
+- 참고 자료: `resources/` 로 정리
+- 임시 파일: `daily/archive/` 로 보관
+- 3일 지난 temp 폴더 자동 정리
+
+## AI 작업 지시
+"오늘 작업 폴더 초기화해줘"
+→ daily/2025-01-16/ 생성
+→ tasks.md, notes.md 템플릿 생성
+
+## Background Agent 활용
+- 작업창 2: 문서/기획 작업
+- 작업창 3: 코드 개발 작업
+- 병렬 작업으로 생산성 극대화

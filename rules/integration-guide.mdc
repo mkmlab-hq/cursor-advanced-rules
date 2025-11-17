@@ -1,0 +1,56 @@
+---
+description: 기존 시스템 통합 가이드 - 기존 시스템 재사용, 점진적 통합
+alwaysApply: true
+priority: 2
+type: "always"
+tags: ["integration", "system", "reuse"]
+---
+# 기존 시스템 통합 가이드
+
+## 이미 구현된 시스템들
+1. **논문 수집**: `qdrant/paper_collection_system.py` 완료
+2. **벡터화**: `qdrant/simple_collect.py` 완료  
+3. **감정 분석**: `realistic_llm_emotion_analyzer.py` 완료
+4. **Qdrant 저장소**: `qdrant/qdrant_data/` 완료
+5. **MCP 서버**: memory-server, mkm12-ultra 완료
+
+## 통합 원칙
+- 새로 만들지 말고 기존 것 활용
+- 기존 시스템을 조합하여 AGI 구축
+- 점진적 통합 (Big Bang 방식 금지)
+
+## 통합 코드 패턴
+```python
+# 기존 시스템들 import
+from qdrant.paper_collection_system import PaperCollectionSystem
+from realistic_llm_emotion_analyzer import ConstitutionIntegratedLLMAnalyzer
+from qdrant_client import QdrantClient
+
+class IntegratedAGI:
+    def __init__(self):
+        # 기존 시스템들 활용
+        self.paper_collector = PaperCollectionSystem()
+        self.emotion_analyzer = ConstitutionIntegratedLLMAnalyzer()
+        self.memory_client = QdrantClient(path="qdrant/qdrant_data")
+    
+    async def diagnose(self, text, constitution):
+        # 1. 기존 감정 분석 활용
+        emotion = self.emotion_analyzer.analyze_with_constitution(text, constitution)
+        
+        # 2. 기존 논문 검색 활용
+        papers = self.paper_collector.search_papers(text, limit=5)
+        
+        # 3. 기존 메모리 검색 활용
+        memory_results = self.memory_client.search(
+            collection_name="agi_long_term_memory",
+            query_vector=self.encode(text)
+        )
+        
+        # 4. 통합 판단
+        return self.integrate_results(emotion, papers, memory_results)
+```
+
+## 새로 만들 것 (최소한)
+- 통합 AGI 클래스 (기존 시스템 조합)
+- 자동 학습 스케줄러 (기존 시스템 호출)
+- 성능 모니터링 (기존 시스템 활용)
