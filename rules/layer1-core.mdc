@@ -1,0 +1,126 @@
+---
+description: 핵심 원칙 (헌법) - 모든 작업에 필수 적용
+alwaysApply: true
+priority: 0
+---
+
+# 🏛️ Core Principles (헌법)
+
+**AUTOMATIC MODE**: 모든 작업 전/중/후 자동 적용
+
+---
+
+## 💻 기본 코딩 스타일
+
+### TypeScript/JavaScript
+- **명확한 변수명**: `getUserData()` ✅, `getData()` ❌
+- **타입 안전성**: 타입 힌트 필수
+- **ESLint 규칙 준수**
+- **함수**: camelCase
+- **컴포넌트**: PascalCase
+- **상수**: UPPER_CASE
+
+### Python
+- **PEP 8 준수**
+- **타입 힌트 필수**: `def process_data(data: dict) -> list:`
+- **함수**: snake_case
+- **클래스**: PascalCase
+- **상수**: UPPER_CASE
+
+### 공통 원칙
+- **주석은 "왜"만**: 코드가 "무엇"을 하는지 설명
+- **DRY 원칙**: 중복 코드 제거
+- **KISS 원칙**: 단순하게 유지
+- **의미 있는 이름**: `calculateTotal()` ✅, `calc()` ❌
+
+---
+
+## 🛡️ 보안 원칙
+
+### 절대 금지
+- ❌ API 키 하드코딩
+- ❌ 비밀번호 하드코딩
+- ❌ 개인정보 로그 출력
+- ❌ 환경변수 없이 시크릿 사용
+
+### 필수 사항
+- ✅ 환경변수로 시크릿 관리: `process.env.API_KEY`
+- ✅ HTTPS/TLS 사용
+- ✅ 입력 검증: SQL Injection, XSS 방지
+- ✅ 의존성 취약점 검사: `npm audit`, `pip-audit`
+
+---
+
+## ⚠️ 에러 처리
+
+### 필수 패턴
+```typescript
+try {
+  const result = await riskyOperation();
+  return result;
+} catch (error) {
+  // 의미 있는 에러 메시지
+  logger.error('Operation failed', { error, context });
+  throw new Error(`Failed to process: ${error.message}`);
+}
+```
+
+### 원칙
+- **try-catch 필수**: 모든 비동기 작업
+- **의미 있는 에러 메시지**: 사용자가 이해할 수 있게
+- **로깅**: 에러 발생 시 컨텍스트 포함
+- **에러 전파**: 적절한 레벨에서 처리
+
+---
+
+## 📁 파일 구조
+
+### 프로젝트 구조
+```
+project/
+├── src/          # 소스 코드
+├── tests/        # 테스트
+├── docs/         # 문서
+├── scripts/     # 스크립트
+└── config/       # 설정
+```
+
+### 네이밍 규칙
+- **파일**: kebab-case (`user-service.ts`)
+- **폴더**: kebab-case (`api-routes/`)
+- **컴포넌트**: PascalCase (`UserProfile.tsx`)
+
+---
+
+## 🔄 MCP 서버 사용 원칙
+
+### 복잡한 로직은 MCP 호출
+- **체질 분석**: `@athena-mkm12 analyze_constitution`
+- **장기기억**: `@athena-memory store_memory`
+- **메타인지**: `@athena-metacognition self_reflect`
+- **ICD 분석**: `@icd-analyzer analyze_health_tool`
+
+### 간단한 작업은 직접 처리
+- 기본 CRUD 작업
+- 간단한 변환 로직
+- 기본 검증
+
+---
+
+## ✅ 작업 완료 전 검증
+
+### 필수 체크리스트
+- [ ] 코드 컴파일/실행 성공
+- [ ] 에러 처리 포함
+- [ ] 보안 검증 완료
+- [ ] 환경변수 설정 확인
+- [ ] 테스트 통과 (가능한 경우)
+
+### 금지 사항
+- ❌ 검증 없이 완료 선언
+- ❌ "작동할 것 같다" 추측
+- ❌ 실제 테스트 없이 완료
+
+---
+
+**총: 100줄 (핵심만 추출)**

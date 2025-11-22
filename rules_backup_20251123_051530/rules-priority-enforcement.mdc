@@ -1,0 +1,307 @@
+---
+description: Rules 우선순위 강제 적용 규칙 (Rules 무시 방지)
+alwaysApply: true
+priority: 0
+type: "always"
+tags: ["critical", "rules", "priority", "enforcement"]
+globs: ["**/*"]
+---
+
+# 🚨 Rules 우선순위 강제 적용 규칙 (Rules 무시 방지)
+
+**작성일**: 2025-11-17  
+**상태**: ✅ 강화됨  
+**우선순위**: 최우선 (0)
+
+---
+
+## 🎯 핵심 원칙 (절대 불변)
+
+**모든 문제 해결 전:**
+- ✅ **Rules 파일 자동 확인** (필수)
+- ✅ **우선순위 0 Rules는 절대 무시 금지** (필수)
+- ✅ **Rules 확인 후 해결책 제시** (필수)
+- ✅ **Rules 위반 시 자동 차단** (필수)
+
+---
+
+## 🚨 절대 금지
+
+### Rules 무시 금지
+
+1. **Rules 확인 없이 해결책 제시 금지**
+   - ❌ 장기기억 검색 후 바로 해결책 제시 금지
+   - ❌ Rules 파일 확인 없이 여러 해결책 제시 금지
+   - ❌ 우선순위 0 Rules 무시 금지
+
+2. **우선순위 0 Rules 위반 금지**
+   - ❌ 우선순위 0 Rules가 있으면 다른 방법 제안 금지
+   - ❌ 우선순위 0 Rules 내용과 다른 해결책 제시 금지
+   - ❌ 우선순위 0 Rules를 "권장" 정도로만 언급 금지
+
+---
+
+## ✅ 필수 적용 프로세스
+
+### 문제 해결 전 (자동 실행)
+
+**모든 문제 해결 전 자동 실행**:
+
+```python
+# ⭐ NEW (2025-11-17): 통합 검색 엔진 사용 (성능 최적화 + 사용 패턴 추적)
+from scripts.enhanced_rules_enforcement import EnhancedRulesEnforcement
+
+def solve_problem_with_rules_check(problem_description: str):
+    """
+    Rules 확인 후 문제 해결 프로세스 (통합 검색 엔진 사용)
+    성능 최적화 + 사용 패턴 추적 자동 포함
+    """
+    # 통합 검색 엔진 초기화 (캐싱 + 사용 패턴 추적 활성화)
+    enforcer = EnhancedRulesEnforcement(use_cache=True, track_usage=True)
+    
+    # 1. 통합 검색 실행 (장기기억 + Rules 파일 + Rules Memory 자동 검색)
+    response = enforcer.check_before_solution(problem_description)
+    
+    # 2. Priority 0 Rules 확인 (자동으로 강제 적용됨)
+    priority_0_rules = response['priority_0_rules']
+    
+    if priority_0_rules:
+        # 우선순위 0 Rules가 있으면 절대 무시 금지
+        print("🚨 우선순위 0 Rules 발견:")
+        for rule in priority_0_rules:
+            print(f"   - {rule['file']}: {rule['description']}")
+        print()
+        print("⚠️ 우선순위 0 Rules는 절대 무시할 수 없습니다!")
+        print("   이 Rules에 명시된 해결책만 제시해야 합니다.")
+        print()
+        
+        # Memory 저장은 자동으로 수행됨 (enforcer.check_before_solution 내부)
+        if response['memory_stored']:
+            print("  ✅ Rules 강제 적용 사례를 장기기억에 저장했습니다.")
+        print()
+        
+        # 우선순위 0 Rules 내용 확인
+        for rule in priority_0_rules:
+            rule_content = read_rule_file(rule['file'])
+            print(f"📋 {rule['file']} 내용:")
+            print(rule_content['solution'])
+            print()
+        
+        # 우선순위 0 Rules 위반 시 차단
+        if not check_solution_compliance(proposed_solution, priority_0_rules):
+            raise ValidationError("우선순위 0 Rules 위반 - 해결책 차단")
+    
+    # 3. 장기기억 검색 결과 활용
+    memory_results = response['related_memories']
+    rules_memory_results = response['rules_memory']
+    
+    # 4. 해결책 생성 (장기기억 + Rules Memory 통합)
+    solution = generate_solution(
+        problem_description, 
+        memory_results,  # 장기기억 검색 결과
+        rules_memory_results,  # Rules 관련 장기기억 검색 결과
+        response['priority_0_rules']  # Rules 파일 검색 결과
+    )
+    
+    # 5. 추천 사항 확인
+    if response['recommendations']:
+        print("💡 추천 사항:")
+        for recommendation in response['recommendations']:
+            print(f"  - {recommendation}")
+        print()
+    
+    # 6. Rules 준수 여부 검증 (필수)
+    if not validate_solution_against_rules(solution, response['priority_0_rules']):
+        raise ValidationError("Rules 위반 - 해결책 차단")
+    
+    return solution
+```
+
+---
+
+## 📋 Rules 파일 자동 검색 함수
+
+### 구현 필요
+
+```python
+def search_rules_files(problem_description: str) -> List[Dict]:
+    """
+    문제 설명과 관련된 Rules 파일 검색
+    
+    Returns:
+        [
+            {
+                'file': 'ssh-key-hpanel-priority.mdc',
+                'priority': 0,
+                'description': 'SSH 키 문제 해결 시 hPanel 방법 우선 규칙',
+                'keywords': ['ssh', 'hpanel', '키']
+            },
+            ...
+        ]
+    """
+    # 1. Rules 디렉토리 스캔
+    rules_dir = Path(".cursor/rules")
+    rules_files = list(rules_dir.glob("*.mdc"))
+    
+    # 2. 문제 설명에서 키워드 추출
+    keywords = extract_keywords(problem_description)
+    
+    # 3. 각 Rules 파일 검색
+    related_rules = []
+    for rule_file in rules_files:
+        # Rules 파일 메타데이터 읽기
+        metadata = parse_rule_metadata(rule_file)
+        
+        # 키워드 매칭 확인
+        if matches_keywords(metadata, keywords):
+            related_rules.append({
+                'file': rule_file.name,
+                'path': str(rule_file),
+                'priority': metadata.get('priority', 10),
+                'description': metadata.get('description', ''),
+                'keywords': keywords
+            })
+    
+    # 4. 우선순위 순 정렬
+    related_rules.sort(key=lambda x: x['priority'])
+    
+    return related_rules
+
+def parse_rule_metadata(rule_file: Path) -> Dict:
+    """
+    Rules 파일 메타데이터 파싱
+    """
+    content = rule_file.read_text(encoding='utf-8')
+    
+    # YAML 프론트매터 파싱
+    metadata = {}
+    if content.startswith('---'):
+        parts = content.split('---', 2)
+        if len(parts) >= 3:
+            yaml_content = parts[1]
+            # 간단한 파싱 (description, priority, alwaysApply)
+            for line in yaml_content.split('\n'):
+                if ':' in line:
+                    key, value = line.split(':', 1)
+                    key = key.strip()
+                    value = value.strip().strip('"').strip("'")
+                    if key == 'priority':
+                        metadata['priority'] = int(value) if value.isdigit() else 10
+                    else:
+                        metadata[key] = value
+    
+    return metadata
+```
+
+---
+
+## 🔍 Rules 준수 여부 검증 함수
+
+### 구현 필요
+
+```python
+def validate_solution_against_rules(solution: str, related_rules: List[Dict]) -> bool:
+    """
+    해결책이 Rules를 준수하는지 검증
+    
+    Returns:
+        True: Rules 준수
+        False: Rules 위반
+    """
+    # 우선순위 0 Rules 확인
+    priority_0_rules = [r for r in related_rules if r.get('priority') == 0]
+    
+    if not priority_0_rules:
+        # 우선순위 0 Rules가 없으면 통과
+        return True
+    
+    # 우선순위 0 Rules 내용 확인
+    for rule in priority_0_rules:
+        rule_content = read_rule_file(rule['path'])
+        
+        # Rules에 명시된 해결책 확인
+        required_solution = rule_content.get('required_solution', '')
+        forbidden_solutions = rule_content.get('forbidden_solutions', [])
+        
+        # 해결책이 금지된 방법을 포함하는지 확인
+        for forbidden in forbidden_solutions:
+            if forbidden.lower() in solution.lower():
+                print(f"❌ Rules 위반: {rule['file']}에서 금지된 방법 사용")
+                print(f"   금지된 방법: {forbidden}")
+                return False
+        
+        # 해결책이 필수 방법을 포함하는지 확인
+        if required_solution and required_solution.lower() not in solution.lower():
+            print(f"❌ Rules 위반: {rule['file']}에서 필수 방법 누락")
+            print(f"   필수 방법: {required_solution}")
+            return False
+    
+    return True
+```
+
+---
+
+## 📊 적용 예시
+
+### 예시: SSH 키 문제 해결
+
+**문제**: SSH 키 passphrase 문제
+
+**프로세스**:
+1. 장기기억 검색: "SSH 키 문제 무한반복" 검색
+2. **Rules 파일 검색**: "ssh", "hpanel", "키" 키워드로 검색
+3. **우선순위 0 Rules 발견**: `ssh-key-hpanel-priority.mdc` (우선순위 0)
+4. **Rules 내용 확인**: hPanel 방법 우선 안내 (필수)
+5. **해결책 제시**: hPanel 방법만 제시 (다른 방법 제안 금지)
+6. **Rules 준수 여부 검증**: hPanel 방법만 포함하는지 확인
+
+**위반 시 차단**:
+```
+❌ Rules 위반: ssh-key-hpanel-priority.mdc에서 금지된 방법 사용
+   금지된 방법: 보안 에이전트 소환, plink 자동화
+   필수 방법: hPanel 방법 우선 안내
+```
+
+---
+
+## 🚨 위반 시 자동 차단
+
+**Rules 확인 없이 해결책 제시 시**:
+- ❌ 해결책 제시 차단
+- ✅ Rules 파일 확인 후 재시도
+
+**우선순위 0 Rules 위반 시**:
+- ❌ 해결책 제시 차단
+- ✅ 우선순위 0 Rules 내용 확인 후 재시도
+
+**차단 메시지**:
+```
+❌ Rules 위반 감지: 우선순위 0 Rules 무시
+✅ Rules 파일 확인 후 재시도하세요:
+   - .cursor/rules/ssh-key-hpanel-priority.mdc (우선순위 0)
+✅ 우선순위 0 Rules는 절대 무시할 수 없습니다.
+```
+
+---
+
+## ✅ 필수 준수사항
+
+### 모든 문제 해결 시
+- ✅ **Rules 파일 자동 검색**: 문제 설명과 관련된 Rules 파일 검색 (필수)
+- ✅ **우선순위 0 Rules 확인**: 우선순위 0 Rules가 있으면 절대 무시 금지 (필수)
+- ✅ **Rules 확인 후 해결책 제시**: Rules 내용 확인 후 해결책 제시 (필수)
+- ✅ **Rules 준수 여부 검증**: 해결책이 Rules를 준수하는지 검증 (필수)
+
+---
+
+## 🎖️ 핵심 원칙 요약
+
+1. **Rules 파일 자동 확인**: 모든 문제 해결 전 Rules 파일 검색 필수
+2. **우선순위 0 Rules 절대 무시 금지**: 우선순위 0 Rules는 절대 무시할 수 없음
+3. **Rules 확인 후 해결책 제시**: Rules 내용 확인 후 해결책 제시
+4. **Rules 준수 여부 검증**: 해결책이 Rules를 준수하는지 검증
+5. **위반 시 자동 차단**: Rules 위반 시 해결책 제시 차단
+
+---
+
+**이 규칙은 모든 문제 해결에 최우선으로 적용됩니다. Rules를 무시하고 해결책을 제시하는 것을 방지합니다!** 🚨✅

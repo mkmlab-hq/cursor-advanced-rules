@@ -1,0 +1,71 @@
+---
+description: MKM12 이론 적용 - MKM12 관련 파일에서만
+globs:
+  - "**/mkm12/**/*.py"
+  - "**/mkm12/**/*.ts"
+  - "**/constitution/**/*.py"
+  - "**/constitution/**/*.ts"
+  - "**/*constitution*.py"
+  - "**/*constitution*.ts"
+alwaysApply: false
+priority: 2
+---
+
+# 🧬 MKM12 이론 적용 (조건부)
+
+**적용 조건**: MKM12/체질 관련 파일에서만
+
+---
+
+## 🎯 핵심 원칙
+
+**복잡한 분석은 MCP 서버 호출**
+
+---
+
+## ✅ 필수 적용 프로세스
+
+### 작업 시작 전
+
+**MCP 서버 호출**:
+```python
+# 체질 분석
+constitution_result = mcp_athena-mkm12.analyze_constitution(
+    symptoms=symptoms,
+    preferences=preferences
+)
+
+# ICD 통합 모델 분석
+icd_result = mcp_icd-analyzer.analyze_health_tool(
+    metabolic_rate=rate,
+    nervous_activity=activity,
+    rib_angle=angle
+)
+```
+
+### 기본 원칙
+
+- **표리병증 분석**: SL/IL/DL (A-Code 용어 체계)
+- **4차원 통합 분석**: S(정신), L(논리), K(지식), M(물질)
+- **ICD 통합 모델**: DCV = f(PD Vector, SD Vector)
+
+---
+
+## 📚 MCP 서버 활용
+
+- **체질 분석**: `@athena-mkm12 analyze_constitution`
+- **체질 특성**: `@athena-mkm12 get_constitution_traits`
+- **ICD 분석**: `@icd-analyzer analyze_health_tool`
+- **동역학 예측**: `@icd-analyzer predict_dynamics_tool`
+
+---
+
+## ⚠️ 주의사항
+
+- **상세 계산식은 MCP 서버에서 처리**
+- **Rules는 호출 가이드만 제공**
+- **복잡한 로직은 MCP로 위임**
+
+---
+
+**총: 70줄 (핵심만 추출, 상세 로직은 MCP)**

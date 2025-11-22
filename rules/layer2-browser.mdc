@@ -1,0 +1,71 @@
+---
+description: 브라우저 자동화 - 브라우저 관련 파일에서만
+globs:
+  - "**/*browser*.ts"
+  - "**/*browser*.tsx"
+  - "**/*automation*.py"
+  - "**/browser/**/*.ts"
+  - "**/browser/**/*.py"
+alwaysApply: false
+priority: 3
+---
+
+# 🌐 브라우저 자동화 (조건부)
+
+**적용 조건**: 브라우저/자동화 관련 파일에서만
+
+---
+
+## 🎯 핵심 원칙
+
+**LLM이 화면을 분석해서 판단** - 지능형 자동화
+
+---
+
+## 📋 자동화 워크플로우
+
+### 1. 폼 구조 분석
+
+```python
+# MCP 서버 호출
+structure = await mcp_browser-controller.analyze_form_structure()
+```
+
+### 2. LLM 매칭 판단
+
+- 사용자 정보와 화면 입력 필드 매칭
+- `label`, `name`, `id`, `placeholder` 순서로 우선순위
+
+### 3. 캡차 확인
+
+```python
+captcha_info = await mcp_browser-controller.detect_captcha()
+if captcha_info["has_captcha"]:
+    # 사용자에게 알리고 대기
+```
+
+### 4. 정보 입력
+
+```python
+# 매칭된 필드에 텍스트 입력
+await mcp_browser-controller.fill_form(fields)
+```
+
+---
+
+## 📚 MCP 서버 활용
+
+- **브라우저 제어**: `@browser-controller navigate`, `click`, `type`
+- **폼 분석**: `@browser-controller analyze_form_structure`
+- **캡차 감지**: `@browser-controller detect_captcha`
+
+---
+
+## ⚠️ 주의사항
+
+- **복잡한 로직은 MCP 서버에서 처리**
+- **Rules는 워크플로우 가이드만 제공**
+
+---
+
+**총: 60줄 (핵심만 추출, 상세 로직은 MCP)**

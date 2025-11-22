@@ -1,0 +1,274 @@
+---
+description: F 드라이브 절대 독립 환경 규칙 - C 드라이브 완전 금지
+alwaysApply: true
+priority: 0
+type: "always"
+tags: ["critical", "f-drive", "independence", "environment"]
+globs: ["**/*.sh", "**/*.ps1", "**/ssh/**", "**/*.py", "**/*.ts"]
+---
+
+# 🚫 F 드라이브 절대 독립 환경 규칙 (C 드라이브 완전 금지)
+
+**작성일**: 2025-11-16  
+**상태**: ✅ 강화됨  
+**우선순위**: 최우선 (0)
+
+---
+
+## 🎯 핵심 원칙 (절대 불변)
+
+**C 드라이브: 완전 금지 (예외 없음)**
+**F 드라이브: 유일 작업 환경 (절대 고정)**
+
+---
+
+## 🚨 C 드라이브 절대 금지 사항
+
+### ❌ 절대 하지 말 것 (예외 없음)
+
+1. **C 드라이브 경로 하드코딩 금지**
+   - ❌ `C:\Users\...` 직접 참조 금지
+   - ❌ `C:\Program Files\...` 직접 참조 금지
+   - ❌ `C:\ProgramData\...` 직접 참조 금지
+   - ❌ `C:\Windows\...` 직접 참조 금지 (시스템 도구 제외 불가능한 경우만)
+
+2. **C 드라이브 파일 생성/수정 금지**
+   - ❌ `C:\Users\giryu\.cursor\` 접근 금지
+   - ❌ `C:\Users\...\.ssh\` 접근 금지
+   - ❌ C 드라이브 임시 파일 생성 금지
+
+3. **C 드라이브 환경 변수 사용 금지**
+   - ❌ `$env:USERPROFILE` 직접 사용 금지 (F 드라이브 확인 없이)
+   - ❌ `%USERPROFILE%` 직접 사용 금지
+   - ❌ `os.path.expanduser("~")` 직접 사용 금지 (C 드라이브로 가는 경우)
+
+4. **C 드라이브 도구 우선 사용 금지**
+   - ❌ C 드라이브에 설치된 도구를 F 드라이브보다 우선 사용 금지
+   - ❌ PATH에서 찾은 도구가 C 드라이브에 있으면 F 드라이브 도구 우선 확인 필수
+
+---
+
+## ✅ F 드라이브 독립 환경 원칙
+
+### 필수 작업 환경
+
+1. **워크스페이스 루트**: `F:\workspace` (절대 고정)
+2. **설정 파일**: `F:\workspace\.cursor\` (절대 고정)
+3. **SSH 키**: `F:\workspace\.ssh\` (절대 고정)
+4. **임시 파일**: `F:\workspace\.temp\` (절대 고정)
+5. **환경 변수**: F 드라이브 기반으로만 설정
+
+### 도구 경로 우선순위 (F 드라이브 우선)
+
+**SSH/SCP**:
+1. `F:\Git\usr\bin\ssh.exe` / `F:\Git\usr\bin\scp.exe`
+2. `F:\program files\Git\usr\bin\ssh.exe` / `F:\program files\Git\usr\bin\scp.exe`
+3. `F:\Program Files\Git\usr\bin\ssh.exe` / `F:\Program Files\Git\usr\bin\scp.exe`
+4. PATH에서 찾기 (단, F 드라이브 경로 우선 확인 후)
+
+**PuTTY (plink/pscp)**:
+1. `F:\Program Files\PuTTY\plink.exe` / `F:\Program Files\PuTTY\pscp.exe`
+2. PATH에서 찾기 (단, F 드라이브 경로 우선 확인 후)
+
+**Python**:
+1. `F:\Python311\python.exe`
+2. PATH에서 찾기 (단, F 드라이브 경로 우선 확인 후)
+
+**Google Cloud SDK**:
+1. `F:\workspace\.config\gcloud\` (CLOUDSDK_CONFIG)
+2. PATH에서 찾기 (단, F 드라이브 경로 우선 확인 후)
+
+**SSH 키 경로** (F 드라이브 독립 환경):
+1. `F:\workspace\.ssh\hostinger_new` (우선순위 1)
+2. `F:\workspace\.ssh\mkmlab_hostinger` (우선순위 2)
+3. `F:\workspace\.ssh\hostinger_mkmlife` (우선순위 3)
+4. 폴백용: `C:\Users\...\.ssh\hostinger_new` (F 드라이브에 없을 경우만, 경고 표시)
+
+**PowerShell SSH 키 경로 예시**:
+```powershell
+# ✅ 올바른 방법 (F 드라이브 우선)
+$sshKeyPath = "F:\workspace\.ssh\hostinger_new"
+if (-not (Test-Path $sshKeyPath)) {
+    $cDriveKeyPath = "$env:USERPROFILE\.ssh\hostinger_new"
+    if (Test-Path $cDriveKeyPath) {
+        Write-Host "⚠️ F 드라이브에 키 없음, C 드라이브 키 사용 (폴백)" -ForegroundColor Yellow
+        $sshKeyPath = $cDriveKeyPath
+    }
+}
+
+# ❌ 잘못된 방법 (C 드라이브 우선)
+$sshKeyPath = "$env:USERPROFILE\.ssh\hostinger_new"  # 절대 금지!
+```
+
+---
+
+## 🔒 자동 검증 프로세스
+
+### 모든 스크립트 실행 전 자동 검증
+
+```python
+def validate_f_drive_independence():
+    """
+    F 드라이브 독립 환경 자동 검증
+    
+    검증 항목:
+    1. C 드라이브 경로 하드코딩 감지
+    2. C 드라이브 파일 접근 시도 감지
+    3. C 드라이브 환경 변수 사용 감지
+    4. F 드라이브 경로 우선순위 확인
+    """
+    violations = []
+    
+    # 1. C 드라이브 경로 하드코딩 감지
+    c_drive_patterns = [
+        r'C:\\Users',
+        r'C:\\Program Files',
+        r'C:\\ProgramData',
+        r'C:\\Windows',
+        r'\$env:USERPROFILE',  # PowerShell
+        r'%USERPROFILE%',  # CMD
+        r'os\.path\.expanduser\("~"\)',  # Python
+    ]
+    
+    # 2. F 드라이브 경로 우선순위 확인
+    # 모든 도구 경로가 F 드라이브 우선인지 확인
+    
+    if violations:
+        raise ValidationError(f"F 드라이브 독립 환경 위반: {violations}")
+```
+
+---
+
+## 📋 코드 작성 규칙
+
+### ✅ 올바른 방법
+
+```python
+# ✅ F 드라이브 경로 우선 확인
+possible_paths = [
+    "F:\\Git\\usr\\bin\\ssh.exe",  # 우선순위 1
+    "F:\\program files\\Git\\usr\\bin\\ssh.exe",  # 우선순위 2
+    "F:\\Program Files\\Git\\usr\\bin\\ssh.exe",  # 우선순위 3
+]
+
+# F 드라이브에서 찾지 못한 경우에만 PATH 확인
+for path in possible_paths:
+    if Path(path).exists():
+        return path
+
+# PATH에서 찾기 (마지막 수단)
+found = shutil.which("ssh.exe")
+if found and "F:" in found:
+    return found  # F 드라이브에 있으면 사용
+elif found:
+    # C 드라이브에 있으면 경고하고 F 드라이브 도구 설치 안내
+    print(f"⚠️ 경고: C 드라이브 도구 발견 ({found}). F 드라이브 도구 사용 권장.")
+    return found  # 작동은 하지만 경고
+```
+
+### ❌ 잘못된 방법
+
+```python
+# ❌ C 드라이브 경로 하드코딩
+possible_paths = [
+    "C:\\Program Files\\PuTTY\\pscp.exe",  # 절대 금지!
+    "C:\\ProgramData\\chocolatey\\bin\\PSCP.EXE",  # 절대 금지!
+]
+
+# ❌ C 드라이브 환경 변수 직접 사용
+ssh_key_path = f"{os.path.expanduser('~')}\\.ssh\\hostinger_new"  # C 드라이브로 갈 수 있음
+
+# ❌ PATH에서 찾은 것을 무조건 사용 (C 드라이브 확인 없이)
+found = shutil.which("pscp.exe")
+return found  # C 드라이브에 있어도 그냥 사용 (금지!)
+```
+
+---
+
+## 🔍 자동 검증 및 수정
+
+### 스크립트 실행 전 자동 검증
+
+**모든 Python/PowerShell 스크립트 실행 전**:
+1. C 드라이브 경로 하드코딩 감지
+2. C 드라이브 파일 접근 시도 감지
+3. F 드라이브 경로 우선순위 확인
+4. 위반 시 자동 수정 또는 경고
+
+### 자동 수정 프로세스
+
+```python
+def auto_fix_c_drive_references(code: str) -> str:
+    """
+    C 드라이브 참조 자동 수정
+    
+    수정 규칙:
+    1. C 드라이브 경로 → F 드라이브 경로로 변경
+    2. 환경 변수 사용 → F 드라이브 확인 후 사용
+    3. PATH에서 찾기 → F 드라이브 우선 확인 후
+    """
+    # C 드라이브 경로 패턴 찾기
+    # F 드라이브 경로로 자동 변경
+    # 경고 메시지 추가
+    pass
+```
+
+---
+
+## 📊 적용 파일 목록
+
+### 필수 수정 대상
+
+다음 파일들에서 C 드라이브 경로 하드코딩 제거 필요:
+
+1. `scripts/hostinger_unified_deploy.py` ✅ (수정 완료)
+2. `scripts/security_agent_auto_fix_ssh.py` ⚠️ (C 드라이브 경로 있음)
+3. `scripts/deploy_mcp_servers_to_vps.py` ⚠️ (C 드라이브 경로 있음)
+4. `scripts/check_ssh_status.py` ⚠️ (C 드라이브 경로 있음)
+5. `scripts/deploy_trading_simple.py` ⚠️ (C 드라이브 경로 있음)
+6. 기타 모든 배포/SSH 관련 스크립트
+
+---
+
+## 🚨 위반 시 자동 차단
+
+**C 드라이브 경로 하드코딩 감지 시**:
+- ❌ 스크립트 실행 차단
+- ✅ 자동 수정 시도
+- ✅ 수정 불가능하면 명확한 오류 메시지
+
+**차단 메시지**:
+```
+❌ F 드라이브 독립 환경 위반 감지
+   - C 드라이브 경로 하드코딩: [경로]
+   - 자동 수정 시도: [결과]
+   - 수정 불가능: [이유]
+   
+✅ F 드라이브 경로로 수정 후 재시도하세요.
+```
+
+---
+
+## ✅ 필수 준수사항
+
+### 모든 코드 작성 시
+
+- ✅ **F 드라이브 경로 우선**: 모든 도구 경로는 F 드라이브 우선 확인
+- ✅ **C 드라이브 경로 금지**: C 드라이브 경로 하드코딩 절대 금지
+- ✅ **환경 변수 사용 금지**: `$env:USERPROFILE` 등 C 드라이브로 가는 환경 변수 직접 사용 금지
+- ✅ **PATH 확인 전 F 드라이브 확인**: PATH에서 찾기 전에 F 드라이브 경로 먼저 확인
+- ✅ **자동 검증**: 모든 스크립트 실행 전 자동 검증
+
+---
+
+## 🎖️ 핵심 원칙 요약
+
+1. **C 드라이브: 완전 금지** (예외 없음)
+2. **F 드라이브: 절대 고정** (유일 작업 환경)
+3. **경로 우선순위: F 드라이브 최우선** (PATH 확인 전 필수)
+4. **자동 검증: 모든 실행 전** (위반 시 차단)
+5. **자동 수정: 가능한 경우** (수정 불가능하면 명확한 오류)
+
+---
+
+**이 규칙은 모든 작업에 최우선으로 적용됩니다. C 드라이브 사용은 절대 금지입니다!** 🚫

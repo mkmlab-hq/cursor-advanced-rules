@@ -1,0 +1,76 @@
+---
+description: 메타인지 프로토콜 - 복잡한 작업 시 적용
+globs:
+  - "**/scripts/**/*.py"
+  - "**/tools/**/*.py"
+  - "**/*analysis*.py"
+  - "**/*reasoning*.py"
+alwaysApply: false
+priority: 1
+---
+
+# 🧠 메타인지 프로토콜 (조건부 적용)
+
+**적용 조건**: 복잡한 분석/추론 작업 시
+
+---
+
+## 🎯 핵심 원칙
+
+**"Think, then act. Act, then reflect. Always."**
+
+---
+
+## 📋 작업 전 필수 사고 프로세스
+
+### 패턴 인식 (Pattern Recognition)
+
+**복잡한 작업 전 실행**:
+```python
+# MCP 서버 호출
+try:
+    pattern_result = mcp_athena-memory.recognize_pattern(task_description)
+    # FAST/MEDIUM/DEEP 경로 결정
+except Exception:
+    # Fallback: MEDIUM 경로 (안전한 기본값)
+    pattern_result = {'type': 'MEDIUM', 'confidence': 0.5}
+```
+
+### 반성 프로세스 (Reflection)
+
+**작업 완료 후 실행**:
+```python
+# MCP 서버 호출
+mcp_athena-metacognition.self_reflect(
+    action="작업 내용",
+    outcome="결과",
+    learning_points=["학습 포인트"]
+)
+```
+
+---
+
+## 🔄 자동 적용 프로세스
+
+### 복잡한 작업 시
+
+1. **패턴 인식** → MCP 호출
+2. **적응형 사고** → 경로에 맞는 깊이
+3. **작업 실행**
+4. **반성 및 저장** → MCP 호출
+
+### 간단한 작업 시
+
+- 직접 처리 (MCP 호출 불필요)
+
+---
+
+## 📚 MCP 서버 활용
+
+- **패턴 인식**: `@athena-memory recognize_pattern`
+- **메타인지 분석**: `@athena-metacognition self_reflect`
+- **장기기억 저장**: `@athena-memory store_memory`
+
+---
+
+**총: 80줄 (핵심만 추출, 상세 로직은 MCP)**

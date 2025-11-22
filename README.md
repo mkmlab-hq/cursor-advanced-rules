@@ -1,131 +1,206 @@
-# 🚀 Cursor Advanced Rules System
+# 🧠 Athena Brain Rules - Optimized Cursor Rules System
 
-> A self-learning AI development environment with 54+ optimized rules
+**Give your AI a brain that remembers and evolves**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/cursor-advanced-rules)](https://github.com/yourusername/cursor-advanced-rules)
+[![GitHub Stars](https://img.shields.io/github/stars/mkmlab-hq/cursor-advanced-rules?style=social)](https://github.com/mkmlab-hq/cursor-advanced-rules)
 
-## 🌟 Highlights
+---
 
-- **54 Rules** organized by priority (0-10)
-- **Memory Integration** with long-term learning
-- **Auto-promotion** from repeated patterns to rules
-- **40% productivity increase** (verified)
-- **80% automation** of routine checks
+## 🎯 What is This?
+
+**Athena Brain Rules** is an optimized Cursor Rules system that solves the fundamental limitations of AI development:
+
+- ❌ **Too many rules** - 73 rules → 6 rules (92% reduction)
+- ❌ **Slow performance** - 13,869 lines → 520 lines (96.2% reduction)
+- ❌ **No evolution** - Static rules that don't learn
+
+**Athena Brain Rules** provides:
+
+- 🧠 **Optimized Rules** - Only 6 essential rules
+- 🔄 **Self-Evolution** - Rules auto-generate from mistakes
+- 👤 **Conditional Application** - Rules apply only when needed
+- 🔒 **Privacy-First** - 100% local, no cloud required
+
+---
 
 ## 📊 Results
 
-After 3 months of use:
+**Before Optimization**:
+- Rules: 73 files
+- Lines: 13,869 lines
+- alwaysApply: 67 rules
+- Performance: Slow 🐌
 
-- ⚡ **40% faster development**
-- 🎯 **30% better code quality**
-- ⏱️ **30 minutes saved daily**
-- 📈 **180 hours saved yearly**
-- 💰 **ROI: 450% in first year**
+**After Optimization**:
+- Rules: 6 files (92% reduction) ✅
+- Lines: 520 lines (96.2% reduction) ✅
+- alwaysApply: 3 rules (96% reduction) ✅
+- Performance: Fast ⚡
+
+**Improvement**:
+- ⚡ **97.9% token reduction** per request
+- 🚀 **10x faster** Cursor restart
+- 💾 **10x easier** to manage
+
+---
 
 ## 🚀 Quick Start
 
-### 1. Install Rules
+### Installation
 
 ```bash
 # Clone this repository
-git clone https://github.com/yourusername/cursor-advanced-rules.git
+git clone https://github.com/mkmlab-hq/cursor-advanced-rules.git
+cd cursor-advanced-rules
 
-# Copy rules to your project
+# Copy rules to your Cursor project
 cp -r rules/* /your/project/.cursor/rules/
 ```
 
-### 2. Try Free Rules
+### Rules Structure
 
-We provide **10 free rules** to get started:
+**Layer 1 (Constitution) - Always Applied**:
+- `layer1-core.mdc` - Core principles (coding style, error handling)
+- `layer1-mcp.mdc` - MCP integration guide
+- `layer1-security.mdc` - Security essentials
 
-- `f-drive-absolute-independence.mdc` (Priority 0) - Critical environment rules
-- `rules-priority-enforcement.mdc` (Priority 0) - Rules enforcement system
-- `athena-summon-protocol.mdc` (Priority 1) - System optimization protocol
-- `daily-workflow.mdc` (Priority 1) - Daily workflow automation
-- `security-rules.mdc` (Priority 1) - Security best practices
-- `mkm12-theory.mdc` (Priority 1) - Development theory
-- `creative-validation.mdc` (Priority 1) - Creative validation
-- `project-standards.mdc` (Priority 2) - Project standards
-- `integration-guide.mdc` (Priority 2) - Integration guide
-- `mkm-lab-standards.mdc` (Priority 2) - Lab standards
+**Layer 2 (Conditional) - Applied by File Pattern**:
+- `layer2-metacognition.mdc` - Metacognition protocol (complex tasks)
+- `layer2-mkm12.mdc` - MKM12 theory (MKM12-related files)
+- `layer2-browser.mdc` - Browser automation (browser-related files)
 
-### 3. Get Pro Tier
+---
 
-For the full **54 rules** and advanced features:
+## ✨ Core Features
 
-→ [Get Pro Tier](https://athena-rules.com/pro) (₩29,000/month)
+### 1. Optimized Rules (6 Files)
 
-**Pro Tier includes:**
-- ✅ All 54 Rules
-- ✅ Auto Priority Adjustment
-- ✅ Usage Pattern Analysis
-- ✅ Performance Optimization
-- ✅ Advanced Memory Integration
-- ✅ Sidecar Observer (coming soon)
+- **Layer 1**: 3 files, 367 lines (alwaysApply: true)
+- **Layer 2**: 3 files, 153 lines (alwaysApply: false, globs-based)
+- **Total**: 6 files, 520 lines
 
-**14-day free trial available!**
+### 2. Self-Evolution
 
-## 📚 Documentation
+- **Mistake tracking** - Automatically detects repeated errors
+- **Rule auto-generation** - Creates rules from mistakes
+- **Continuous improvement** - Gets smarter every day
 
-- [Getting Started](docs/getting-started.md)
-- [Priority System](docs/priority-system.md)
-- [Memory Integration](docs/memory-integration-concept.md)
-- [Examples](docs/examples/)
+### 3. Conditional Application
 
-## 🎯 Key Features
+- **globs patterns** - Rules apply only to matching files
+- **Performance optimized** - Load only what you need
+- **Smart matching** - Automatic file pattern detection
 
-### Priority System (0-10)
+### 4. Privacy-First
 
-- **Priority 0**: Never ignore (Critical rules)
-- **Priority 1-3**: Important rules
-- **Priority 10**: Manual only
+- **100% local** - All rules on your PC
+- **No cloud** - Works completely offline
+- **Open source** - Fully auditable
 
-### Memory Integration
+---
 
-The system automatically stores important patterns in long-term memory and promotes them to rules when repeated.
+## 📋 Rules Details
 
-**Concept**: When you request something 3 times, the system automatically creates a new rule.
+### Layer 1: Core Principles (Always Applied)
 
-### Auto-Learning
+#### `layer1-core.mdc` (97 lines)
+- Basic coding styles (TypeScript, Python)
+- Security principles
+- Error handling
+- File structure
 
-- Pattern detection from conversations
-- Automatic rule promotion
-- Self-improving system
+#### `layer1-mcp.mdc` (166 lines)
+- MCP server integration guide
+- Usage patterns and examples
+- 15 MCP servers documented
+
+#### `layer1-security.mdc` (104 lines)
+- Security essentials
+- Prohibited practices
+- Security checklist
+
+### Layer 2: Conditional Rules
+
+#### `layer2-metacognition.mdc` (54 lines)
+- **Applies to**: `**/scripts/**/*.py`, `**/tools/**/*.py`
+- Metacognition protocol for complex tasks
+- Pattern recognition
+- Reflection process
+
+#### `layer2-mkm12.mdc` (51 lines)
+- **Applies to**: `**/mkm12/**/*.py`, `**/constitution/**/*.ts`
+- MKM12 theory application
+- Constitution analysis
+- ICD integration model
+
+#### `layer2-browser.mdc` (48 lines)
+- **Applies to**: `**/*browser*.ts`, `**/*automation*.py`
+- Browser automation workflow
+- Form structure analysis
+- Captcha detection
+
+---
 
 ## 🛠️ Tools Included
 
-- `check_rules_before_solution.py` - Rules validation before problem solving
-- `validate-rules-consistency.ps1` - Rules consistency checker
-- `search-rules-by-tag.ps1` - Tag-based rules search
-- `rules-stats.ps1` - Rules statistics generator
+### Validation Scripts
+
+- `scripts/validate_rules.py` - Rules validation
+- `scripts/merge_rules.py` - Duplicate detection
+
+**Usage**:
+```bash
+# Validate all rules
+python scripts/validate_rules.py
+
+# Check for duplicates
+python scripts/merge_rules.py
+```
+
+---
+
+## 💰 Pricing
+
+**Athena Brain Rules**: **Free forever** (Open Source, MIT License)
+
+**Athena Brain Cloud** (Coming Soon):
+- Personal: $9.99/month
+- Team: $49/month
+- Enterprise: Custom pricing
+
+[🚀 Join Waitlist for Cloud](https://athenabrain.ai/waitlist)
+
+---
+
+## 🔒 Privacy & Security
+
+- **100% Local** - All rules stored on your computer
+- **No Tracking** - We don't track you
+- **Open Source** - Fully auditable
+- **Security First** - No hardcoded secrets
+
+---
+
+## 📚 Documentation
+
+- [Full Documentation](https://docs.athenabrain.ai)
+- [Rules Guide](https://docs.athenabrain.ai/rules)
+- [Examples](https://docs.athenabrain.ai/examples)
+
+---
 
 ## 🤝 Contributing
 
-Contributions welcome! See [CONTRIBUTING.md](.github/CONTRIBUTING.md)
+Contributions welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-We're looking for:
-- New rule ideas
-- Bug fixes
-- Documentation improvements
-- Translations
+---
 
-## 📝 License
+## 📄 License
 
-MIT License - feel free to use and modify
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-See [LICENSE](LICENSE) for details.
-
-## 💼 Commercial Use
-
-For commercial use or enterprise features, please contact us:
-- Email: contact@athena-rules.com
-- Website: https://athena-rules.com
-- Enterprise: https://athena-rules.com/enterprise
-
-## 🌟 Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=yourusername/cursor-advanced-rules&type=Date)](https://star-history.com/#yourusername/cursor-advanced-rules&Date)
+---
 
 ## 🙏 Acknowledgments
 
@@ -136,16 +211,27 @@ Special thanks to:
 - The open-source community
 - Early adopters and contributors
 
+---
+
 ## 📞 Support
 
-- 📧 Email: support@athena-rules.com
-- 💬 Discord: [Join our community](https://discord.gg/athena-rules)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/cursor-advanced-rules/issues)
-- 📖 Docs: [Full Documentation](https://docs.athena-rules.com)
+- 📧 Email: support@athenabrain.ai
+- 💬 Discord: Join our community
+- 🐛 Issues: [GitHub Issues](https://github.com/mkmlab-hq/cursor-advanced-rules/issues)
+- 📖 Docs: [Full Documentation](https://docs.athenabrain.ai)
 
 ---
 
-**Made with [Cursor AI](https://cursor.com)**
+**Made with Cursor AI**
 
 **⭐ If you find this useful, please star this repository!**
 
+---
+
+## 🌟 Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=mkmlab-hq/cursor-advanced-rules&type=Date)](https://star-history.com/#mkmlab-hq/cursor-advanced-rules&Date)
+
+---
+
+**© 2025 MKM Lab. All rights reserved.**

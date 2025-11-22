@@ -1,0 +1,209 @@
+---
+description: MCP 통합 가이드 - 복잡한 로직은 MCP 서버 호출
+alwaysApply: true
+priority: 1
+---
+
+# 🔌 MCP Integration Guide
+
+**AUTOMATIC MODE**: 모든 작업에서 MCP 서버 활용
+
+---
+
+## 🎯 사용 원칙
+
+### 복잡한 로직 → MCP 호출
+- 체질 분석 알고리즘
+- 장기기억 검색/저장
+- 메타인지 분석
+- ICD 통합 모델 계산
+- 대용량 데이터 처리
+
+### 간단한 작업 → 직접 처리
+- 기본 CRUD 작업
+- 간단한 변환 로직
+- 기본 검증
+- 파일 읽기/쓰기
+
+---
+
+## 📋 설치된 MCP 서버 (15개)
+
+### Core 서버 (기본)
+- **filesystem**: 파일 시스템 작업
+- **sequential-thinking**: 순차적 사고 프로세스
+- **file-manager**: 파일 관리 자동화
+
+### Athena 서버 (핵심)
+- **athena-memory**: 장기기억 시스템
+  - `store_memory()`: 기억 저장
+  - `search_memory()`: 기억 검색
+  - `auto_process_query()`: 자동 통합 처리
+  - `recognize_pattern()`: 패턴 인식
+  - `tag_emotion()`: 감정 태깅
+
+- **athena-metacognition**: 메타인지
+  - `monitor_thinking()`: 사고 과정 모니터링
+  - `self_reflect()`: 자기 반성
+  - `analyze_reasoning()`: 추론 분석
+
+- **athena-systematic-thinking**: 체계적 사고
+  - `structure_information()`: 정보 구조화
+  - `enhance_context_detection()`: 상황 감지
+
+- **athena-evolution**: 자율진화 시스템
+  - `track_mistake_pattern()`: 실수 패턴 추적
+  - `optimize_mcp_configuration()`: MCP 최적화
+
+### 전문 서버
+- **icd-analyzer**: ICD 통합 모델 분석
+  - `analyze_health_tool()`: 건강 분석
+  - `analyze_market_tool()`: 시장 분석
+  - `predict_dynamics_tool()`: 동역학 예측
+
+- **db-composer**: DB 스키마 기반 CRUD 생성
+  - `generate_crud_from_schema()`: CRUD 자동 생성
+
+- **context-aggregator**: 컨텍스트 통합 수집
+  - `gather_context()`: 컨텍스트 수집
+
+- **smart-code-validator**: 코드 검증
+  - `validate_code()`: 코드 검증
+  - `validate_file()`: 파일 검증
+
+- **fullstack-generator**: 풀스택 생성
+  - `generate_fullstack()`: 풀스택 자동 생성
+
+- **gemini-3-pro**: Gemini 3 Pro 통합
+  - `generate_code_with_a_code()`: A-Code 기반 코드 생성
+  - `review_code_with_a_code()`: A-Code 기반 코드 리뷰
+
+- **browser-controller**: 브라우저 자동화
+  - `browser_navigate()`: 페이지 이동
+  - `browser_click()`: 클릭
+  - `browser_type()`: 텍스트 입력
+
+- **hostinger-website-manager**: 호스팅 관리
+
+---
+
+## 🔄 사용 패턴 및 예시
+
+### 패턴 1: 복잡한 분석
+```
+사용자 요청 → Rules 판단 → MCP 호출 → 결과 반환
+```
+
+**예시 1: 장기기억 검색**
+```python
+# 복잡한 질문에 대한 과거 기억 검색
+result = mcp_athena-memory.search_memory(
+    query="MKM12 체질 분석 방법",
+    limit=5
+)
+```
+
+**예시 2: 패턴 인식**
+```python
+# 작업 패턴 인식 (FAST/MEDIUM/DEEP 경로 결정)
+pattern = mcp_athena-memory.recognize_pattern(
+    task_description="사용자 인증 시스템 구현"
+)
+# 결과: {'type': 'MEDIUM', 'confidence': 0.85, ...}
+```
+
+**예시 3: 메타인지 반성**
+```python
+# 작업 완료 후 반성
+mcp_athena-metacognition.self_reflect(
+    action="API 엔드포인트 구현",
+    outcome="성공적으로 완료",
+    learning_points=["RESTful 설계 원칙", "에러 처리 패턴"]
+)
+```
+
+### 패턴 2: 데이터 처리
+```
+대용량 데이터 → MCP 서버로 위임 → 결과 반환
+```
+
+**예시 1: ICD 통합 모델 분석**
+```python
+# 건강 데이터 분석
+result = mcp_icd-analyzer.analyze_health_tool(
+    metabolic_rate=2000,
+    nervous_activity=50,
+    rib_angle=75
+)
+```
+
+**예시 2: 동역학 예측**
+```python
+# 시스템 상태 예측
+prediction = mcp_icd-analyzer.predict_dynamics_tool(
+    current_state={"S": 0.7, "L": 0.6, "K": 0.8, "M": 0.5},
+    time_horizon=5
+)
+```
+
+### 패턴 3: 자동화
+```
+반복 작업 → MCP 서버 자동화 → 결과 반환
+```
+
+**예시 1: 파일 정리**
+```python
+# 자동 파일 정리
+result = mcp_file-manager.auto_organize(
+    strategy="smart",
+    dry_run=False
+)
+```
+
+**예시 2: DB CRUD 생성**
+```python
+# 스키마 기반 CRUD 자동 생성
+result = mcp_db-composer.generate_crud_from_schema(
+    table_name="users",
+    include_backend=True,
+    include_frontend=True
+)
+```
+
+**예시 3: 풀스택 생성**
+```python
+# 테이블 기반 풀스택 자동 생성
+result = mcp_fullstack-generator.generate_fullstack(
+    table_name="products",
+    include_db=True,
+    include_backend=True,
+    include_frontend=True
+)
+```
+
+---
+
+## ⚠️ 주의사항
+
+### MCP 호출 전 확인
+- [ ] 해당 기능이 MCP 서버에 있는지 확인
+- [ ] 필요한 파라미터 준비
+- [ ] 에러 처리 포함
+
+### MCP 호출 실패 시
+- Fallback 로직 준비
+- 사용자에게 명확한 에러 메시지
+- 대안 제시
+
+---
+
+## 📚 자세한 내용
+
+각 MCP 서버의 상세 기능은:
+- MCP 서버 코드 참조
+- `@mcp-server-name` 도구 목록 확인
+- 필요 시 문서 참조
+
+---
+
+**총: 100줄 (핵심만 추출)**

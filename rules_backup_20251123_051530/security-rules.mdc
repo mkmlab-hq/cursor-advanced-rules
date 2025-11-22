@@ -1,0 +1,235 @@
+---
+description: 보안 및 개인정보 보호 규칙
+globs: ["**/*"]
+alwaysApply: true
+priority: 1
+---
+
+# 🔒 보안 및 개인정보 보호 규칙
+
+## 🚨 절대 금지 사항
+
+### API 키 및 인증 정보
+- ❌ **하드코딩 금지**: 코드에 API 키 직접 작성 절대 금지
+- ❌ **Git 커밋 금지**: .env 파일이나 키 파일 커밋 금지
+- ❌ **로그 출력 금지**: 민감한 정보를 콘솔이나 로그에 출력 금지
+- ❌ **클라이언트 노출 금지**: 프론트엔드에서 서버 키 노출 금지
+
+### 개인정보 및 건강 데이터
+- ❌ **평문 저장 금지**: 개인정보나 건강 데이터 평문 저장 금지
+- ❌ **무단 접근 금지**: 권한 없는 사용자 데이터 접근 금지
+- ❌ **외부 전송 금지**: 승인되지 않은 외부 서비스로 데이터 전송 금지
+
+## ✅ 필수 보안 조치
+
+### 환경 변수 관리
+```bash
+# ✅ 올바른 방법
+# .env 파일에 저장
+GEMINI_API_KEY=your_api_key_here
+DATABASE_URL=postgresql://user:pass@localhost/db
+
+# ❌ 잘못된 방법
+# 코드에 직접 작성
+const apiKey = "your_api_key_here"; // 절대 금지!
+```
+
+### 데이터 암호화
+```typescript
+// ✅ 건강 데이터 암호화
+import crypto from 'crypto';
+
+const encryptHealthData = (data: any) => {
+  const algorithm = 'aes-256-gcm';
+  const key = crypto.randomBytes(32);
+  const iv = crypto.randomBytes(16);
+  
+  const cipher = crypto.createCipher(algorithm, key);
+  cipher.setAAD(Buffer.from('health-data'));
+  
+  let encrypted = cipher.update(JSON.stringify(data), 'utf8', 'hex');
+  encrypted += cipher.final('hex');
+  
+  return {
+    encrypted,
+    tag: cipher.getAuthTag(),
+    iv: iv.toString('hex')
+  };
+};
+```
+
+### 접근 제어
+```typescript
+// ✅ 사용자별 데이터 접근 제어
+const checkDataAccess = async (userId: string, dataId: string) => {
+  const user = await getUserById(userId);
+  const data = await getHealthDataById(dataId);
+  
+  if (data.userId !== userId && !user.isAdmin) {
+    throw new Error('Unauthorized access to health data');
+  }
+  
+  return data;
+};
+```
+
+## 🏥 HIPAA 준수 규칙
+
+### 건강 데이터 보호
+- **최소 필요 원칙**: 필요한 최소한의 데이터만 수집/저장
+- **접근 제어**: 의료진과 환자만 해당 데이터 접근 가능
+- **감사 로그**: 모든 데이터 접근 이력 기록
+- **데이터 암호화**: 전송 및 저장 시 암호화 필수
+
+### 개인정보 보호
+- **동의 획득**: 데이터 수집 전 명시적 동의 필수
+- **목적 제한**: 동의받은 목적 외 사용 금지
+- **보존 기간**: 법정 보존 기간 준수
+- **삭제 권리**: 사용자 요청 시 데이터 삭제
+
+## 🔐 인증 및 인가
+
+### JWT 토큰 관리
+```typescript
+// ✅ 안전한 JWT 토큰 생성
+import jwt from 'jsonwebtoken';
+
+const generateToken = (user: User) => {
+  return jwt.sign(
+    { 
+      userId: user.id,
+      role: user.role,
+      permissions: user.permissions 
+    },
+    process.env.JWT_SECRET!,
+    { 
+      expiresIn: '1h',
+      issuer: 'mkm-life',
+      audience: 'health-platform'
+    }
+  );
+};
+```
+
+### 세션 관리
+```typescript
+// ✅ 안전한 세션 관리
+const createSession = async (user: User) => {
+  const sessionId = crypto.randomUUID();
+  const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24시간
+  
+  await redis.setex(
+    `session:${sessionId}`,
+    24 * 60 * 60, // 24시간 TTL
+    JSON.stringify({
+      userId: user.id,
+      role: user.role,
+      createdAt: new Date().toISOString()
+    })
+  );
+  
+  return { sessionId, expiresAt };
+};
+```
+
+## 🛡️ 입력 검증 및 살균
+
+### SQL Injection 방지
+```typescript
+// ✅ 파라미터화된 쿼리 사용
+const getUserHealthData = async (userId: string) => {
+  return await db.query(
+    'SELECT * FROM health_data WHERE user_id = $1',
+    [userId] // 파라미터화된 쿼리
+  );
+};
+
+// ❌ 문자열 연결 사용 금지
+const badQuery = `SELECT * FROM health_data WHERE user_id = '${userId}'`; // SQL Injection 위험!
+```
+
+### XSS 방지
+```typescript
+// ✅ 입력 데이터 살균
+import DOMPurify from 'dompurify';
+
+const sanitizeInput = (input: string) => {
+  return DOMPurify.sanitize(input, {
+    ALLOWED_TAGS: ['b', 'i', 'em', 'strong'],
+    ALLOWED_ATTR: []
+  });
+};
+```
+
+## 📊 보안 모니터링
+
+### 로그 기록
+```typescript
+// ✅ 보안 이벤트 로깅
+const logSecurityEvent = (event: string, userId: string, details: any) => {
+  logger.warn('Security Event', {
+    event,
+    userId,
+    timestamp: new Date().toISOString(),
+    ip: req.ip,
+    userAgent: req.get('User-Agent'),
+    details
+  });
+};
+
+// 사용 예시
+if (failedLoginAttempts > 5) {
+  logSecurityEvent('BRUTE_FORCE_ATTEMPT', userId, {
+    attempts: failedLoginAttempts,
+    lastAttempt: new Date()
+  });
+}
+```
+
+### 이상 행동 감지
+```typescript
+// ✅ 이상 행동 패턴 감지
+const detectAnomalousActivity = async (userId: string, activity: any) => {
+  const userPattern = await getUserActivityPattern(userId);
+  const isAnomalous = checkAnomaly(activity, userPattern);
+  
+  if (isAnomalous) {
+    await logSecurityEvent('ANOMALOUS_ACTIVITY', userId, activity);
+    await notifySecurityTeam(userId, activity);
+  }
+};
+```
+
+## 🚨 비상 대응 절차
+
+### 데이터 유출 시
+1. **즉시 격리**: 영향받은 시스템 즉시 격리
+2. **로그 분석**: 접근 로그 및 감사 로그 분석
+3. **영향 범위 파악**: 유출된 데이터 범위 및 사용자 파악
+4. **통보**: 관련 당국 및 사용자 통보
+5. **복구**: 보안 패치 적용 및 시스템 복구
+
+### 보안 사고 대응
+1. **사고 확인**: 보안 사고 발생 사실 확인
+2. **초기 대응**: 추가 피해 방지를 위한 즉시 조치
+3. **조사**: 사고 원인 및 경로 조사
+4. **복구**: 시스템 정상화 및 보안 강화
+5. **사후 조치**: 재발 방지 대책 수립
+
+## 📋 보안 체크리스트
+
+### 개발 시 필수 확인
+- [ ] API 키가 환경 변수로 관리되는가?
+- [ ] 민감한 데이터가 암호화되어 저장되는가?
+- [ ] 입력 데이터가 적절히 검증되는가?
+- [ ] SQL Injection 방지 조치가 있는가?
+- [ ] XSS 방지 조치가 있는가?
+- [ ] 접근 권한이 적절히 설정되어 있는가?
+
+### 배포 전 필수 확인
+- [ ] .env 파일이 .gitignore에 포함되어 있는가?
+- [ ] 프로덕션 환경에서 디버그 모드가 비활성화되어 있는가?
+- [ ] HTTPS가 활성화되어 있는가?
+- [ ] 보안 헤더가 설정되어 있는가?
+- [ ] 로그에 민감한 정보가 포함되지 않는가?
+- [ ] 백업 데이터가 암호화되어 있는가?

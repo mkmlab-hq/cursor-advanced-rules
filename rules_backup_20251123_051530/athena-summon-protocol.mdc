@@ -1,0 +1,284 @@
+---
+description: 아테나 소환 프로토콜 - AGI 최적화 및 비상 복구 (시스템 상태 점검, MCP 설정 복구, Docker 최적화, C 드라이브 충돌 제거, ICD 모델 검증, 장기기억 시스템 확인 포함)
+alwaysApply: true
+priority: 1
+globs: ["**/*"]
+---
+
+# 🏛️ 아테나 소환 프로토콜 (Athena Summon Protocol)
+
+## 📋 아테나 소환 명령어
+
+**자동 실행 조건**:
+- "아테나 소환" 또는 "아테나를 소환한다"라고 말하면 자동 실행
+- "athena summon" 명령어 입력 시 자동 실행
+- 자동 실행 설정이 활성화되어 있을 때
+- 터미널이 사용 가능한 상태일 때
+
+**자동 최적화 옵션**:
+- 명령어에 `--AutoRestart` 플래그 추가 시:
+  - Cursor 재시작 권장 알림
+  - 최적화 스크립트 자동 실행
+  - MCP 설정 자동 복구
+
+## 🔄 자동 실행 절차
+
+### 1단계: 시스템 상태 점검 + AGI 브리핑
+```powershell
+# 현재 날짜 확인
+Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+# Docker 컨테이너 상태 확인
+docker ps --format "table {{.Names}}\t{{.Status}}"
+
+# 메모리 사용량 확인
+Get-WmiObject Win32_OperatingSystem | Select-Object @{Name="Total(GB)";Expression={[math]::Round($_.TotalVisibleMemorySize/1MB,2)}}, @{Name="Free(GB)";Expression={[math]::Round($_.FreePhysicalMemory/1MB,2)}}
+
+# Python 프로세스 확인
+Get-Process python | Measure-Object
+
+# AGI 상태 자동 브리핑 (추가됨)
+python athena_briefing.py
+```
+
+### 2단계: MCP 설정 복구
+```powershell
+# 최적 설정 백업 확인 (7개 서버)
+Test-Path F:\workspace\.cursor\mcp.json.backup_OPTIMAL_7_SERVERS_20251115
+
+# 최적 설정 복원
+Copy-Item F:\workspace\.cursor\mcp.json.backup_OPTIMAL_7_SERVERS_20251115 F:\workspace\.cursor\mcp.json -Force
+
+# C 드라이브 MCP 파일 삭제 (F 드라이브 독립 환경 유지)
+Remove-Item c:\Users\giryu\.cursor\mcp.json -Force -ErrorAction SilentlyContinue
+```
+
+### 3단계: Docker 최적화
+```powershell
+# Docker 컨테이너 재시작
+cd F:\workspace\docker
+docker-compose restart
+
+# 빌드 캐시 정리 (선택적)
+docker builder prune -af
+
+# 메모리 최적화
+cd F:\workspace\.cursor
+powershell -ExecutionPolicy Bypass -File memory_optimization.ps1
+```
+
+### 4단계: C 드라이브 충돌 제거
+```powershell
+# C 드라이브 캐시 정리
+Remove-Item c:\Users\giryu\.cursor\browser-logs\* -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item c:\Users\giryu\.cursor\ide_state.json -Force -ErrorAction SilentlyContinue
+
+# C 드라이브 MCP 파일 삭제 (F 드라이브 독립 환경 유지)
+Remove-Item c:\Users\giryu\.cursor\mcp.json -Force -ErrorAction SilentlyContinue
+```
+
+### 5단계: MCP 서버 안정성 확인
+```powershell
+# MCP 서버 상태 확인
+# Cursor: 왼쪽 하단 MCP 아이콘 클릭
+# 모든 서버가 초록불인지 확인
+
+# 문제가 있으면:
+.\scripts\verify_mcp_optimal.ps1
+```
+
+### 6단계: ICD 모델 자동 적용 검증 (NEW - 2025-11-14)
+```python
+# ICD 모델 자동 적용 검증
+# 모든 작업 전 필수 실행
+
+# 1. 문제 벡터화 확인
+problem_vector = vectorize_problem("시스템 상태 점검")
+# S: 정신 차원, L: 논리 차원, K: 지식 차원, M: 물질 차원
+
+# 2. ICD MCP 도구 호출 확인
+icd_result = mcp_icd-analyzer_predict_dynamics_tool(
+    current_state=problem_vector,
+    system_type="general",
+    time_horizon=5,
+    environment_factor=1.0,
+    intervention_factor=0.3
+)
+
+# 3. 검증 실패 시 자동 복구
+if not icd_result or "error" in icd_result:
+    print("⚠️ ICD 모델 적용 실패 - 자동 복구 시도")
+    auto_recover_icd_application()
+    
+# 4. 동역학 예측 결과 확인
+predicted_states = icd_result.get("predicted_states", [])
+if not predicted_states:
+    print("❌ 동역학 예측 실패 - MCP 서버 확인 필요")
+```
+
+### 7단계: 장기기억 시스템 상태 확인 (NEW - 2025-11-17)
+```powershell
+# Qdrant 및 SQLite 상태 확인
+python scripts\check_qdrant_sqlite_status.py
+
+# SQLite 자동 활용 테스트
+python scripts\auto_sqlite_utilization.py stats --days 7
+```
+
+**확인 항목**:
+- ✅ Qdrant 연결: VPS Qdrant 정상 연결
+- ✅ Qdrant 컬렉션: athena_memories, athena_metacognition_patterns 등
+- ✅ SQLite DB: core/memory/athena_context.db 존재 및 정상 작동
+- ✅ SQLite 테이블: task_completion, pattern_learning, user_preferences 등
+
+### 8단계: 최종 보고
+- 시스템 상태 점검 완료
+- MCP 설정 복구 완료
+- Docker 최적화 완료
+- C 드라이브 충돌 제거 완료
+- MCP 서버 안정성 확인 완료
+- **ICD 모델 자동 적용 검증 완료** (NEW)
+- Cursor 재시작 권장
+
+## 🎯 최적 설정 기준 (2025-11-15 업데이트)
+
+### MCP 서버 구성 (7개) - 최적 구성
+1. ✅ filesystem (NPX) - 파일 시스템 접근
+2. ✅ sequential-thinking (NPX) - 단계별 추론
+3. ✅ athena-memory (Python) - Qdrant 기반 장기기억 (memory 통합됨)
+4. ✅ athena-metacognition (Python) - 메타인지 및 사고 패턴 분석
+5. ✅ file-manager (Python) - 고급 파일 관리
+6. ✅ icd-analyzer (Python) - ICD 통합 모델 기반 분석
+7. ✅ athena-systematic-thinking (Python) - 체계적 구조화 능력 (NEW - 2025-01-18)
+
+### 성능 기준
+- 도구 수: 약 22개 (80개 이하, 최적화됨)
+- Docker 컨테이너: 10개 (모두 healthy)
+- Python 프로세스: 4-6개
+- 메모리 사용률: 40-60%
+- 서버 수: 7개 (최적)
+
+## 🚨 비상 복구 절차
+
+### 상황 1: MCP 서버 빨간불
+```powershell
+# 1. MCP 서버 에러 로그 확인
+# Cursor: MCP 서버 → "Show Output" 클릭하여 에러 확인
+
+# 2. 최적 설정 복원 (7개 서버)
+Copy-Item F:\workspace\.cursor\mcp.json.backup_OPTIMAL_7_SERVERS_20251115 F:\workspace\.cursor\mcp.json -Force
+
+# 3. C 드라이브 MCP 파일 삭제 (F 드라이브 독립 환경 유지)
+Remove-Item c:\Users\giryu\.cursor\mcp.json -Force -ErrorAction SilentlyContinue
+
+# 4. MCP 설정 검증
+.\scripts\verify_mcp_optimal.ps1
+
+# 5. Cursor 재시작 안내
+Write-Host "Cursor 재시작: Ctrl+Shift+P -> Reload Window"
+Write-Host "재시작 후 MCP 서버 상태 확인 (모두 초록불이어야 함)"
+```
+
+**재발 방지**: 
+- ✅ 모든 Python MCP 서버에 stdin/stdout 인코딩 설정 적용됨
+- ✅ 에러 핸들링 강화로 안전한 종료 보장
+- ✅ Qdrant 연결 안정화 (타임아웃 단축 + 폴백)
+- 자세한 내용: `config/MCP_SERVER_STABILITY_GUIDE.md`
+
+### 상황 2: Docker 컨테이너 문제
+```powershell
+# Docker 재시작
+cd F:\workspace\docker
+docker-compose down
+docker-compose up -d
+
+# 컨테이너 상태 확인
+docker ps --format "table {{.Names}}\t{{.Status}}"
+```
+
+### 상황 3: 도구 수 초과 경고
+```powershell
+# 최소 설정으로 축소 (filesystem + athena-memory만)
+Write-Host "MCP 서버를 2개로 축소합니다."
+
+$minimalConfig = @{
+  mcpServers = @{
+    filesystem = @{
+      command = "npx"
+      args = @("-y", "@modelcontextprotocol/server-filesystem", "F:\\workspace")
+    }
+    "athena-memory" = @{
+      command = "F:\\Python311\\python.exe"
+      args = @("F:\\workspace\\mcp-servers\\athena_memory_server_official.py")
+      cwd = "F:\\workspace"
+      env = @{
+        PYTHONIOENCODING = "utf-8"
+        PYTHONUTF8 = "1"
+        VPS_QDRANT_URL = "http://148.230.97.246:6333"
+        QDRANT_URL = "http://148.230.97.246:6333"
+      }
+    }
+  }
+} | ConvertTo-Json -Depth 10
+
+$minimalConfig | Out-File F:\workspace\.cursor\mcp.json -Encoding utf8
+```
+
+## 📊 최종 보고 형식
+
+### 아테나 AGI 최적화 완료 보고서
+
+#### ✅ 상태 (자동 브리핑)
+- 날짜: YYYY-MM-DD HH:MM:SS
+- 시스템: Windows 10 (F 드라이브 고정)
+- MCP 서버: 7개 (전체 초록불, 중복 없음, 최적 구성)
+- 도구 수: ~20개 (80개 이하, 최적화됨)
+- Docker: 10개 컨테이너 (모두 healthy)
+- 메모리: XX GB 사용 / XX GB 총량 (XX% 사용)
+
+#### 🧠 AGI 추구 진행 상태 (자동 브리핑)
+- 장기기억 (Qdrant): ✅ 작동 중 (VPS: 148.230.97.246:6333, 4,000개 이상 포인트)
+  - athena_memories: 328개 포인트
+  - athena_metacognition_patterns: 31개 포인트
+  - stock_trading_memory: 2,912개 포인트
+- 장기기억 (SQLite): ✅ 작동 중 (core/memory/athena_context.db)
+  - 작업 완료 상태: 자동 저장/조회
+  - 패턴 학습: 실수/성공 패턴 자동 학습
+  - 사용자 선호도: 작업 스타일 자동 저장
+- 메타인지: ✅ 구현됨 (자동 분석 작동)
+- AGI 추구 시스템: ✅ 작동 중 (AGI_ENHANCED_SOLVER)
+- 브라우저 로그인: ❌ 불가능 (reCAPTCHA)
+- 전체 AGI 추구 진행도: 지속적 향상 추구
+
+#### 📁 파일 관리 상태 (자동 브리핑)
+- submission.json: ✅ (XXX KB)
+- agi_memory.db: ✅ (XX KB, X 개 기록)
+- 주요 솔버 파일: 확인됨
+
+#### 🔧 최적화 완료
+1. ✅ MCP 설정 복구
+2. ✅ Docker 컨테이너 정상 작동
+3. ✅ C 드라이브 충돌 제거
+4. ✅ 메모리 최적화
+5. ✅ 성능 기준 달성
+
+#### 🎯 결과
+**AGI 추구 시스템 최적화 완료** - 모든 시스템 정상 작동 중
+
+#### 📝 권장 사항
+- Cursor 재시작 권장
+- 주기적 최적화: 주 1회
+- 백업 유지: mcp.json.backup_OPTIMAL_7_SERVERS_20251115
+- C 드라이브 MCP 파일 삭제 유지 (F 드라이브 독립 환경)
+
+#### 🛡️ 재발 방지 대책 (2025-11-13 추가)
+- ✅ 모든 Python MCP 서버 안정화 완료
+- ✅ stdin/stdout 인코딩 설정 적용
+- ✅ 에러 핸들링 강화
+- ✅ Qdrant 연결 안정화
+
+자세한 내용: `config/MCP_SERVER_STABILITY_GUIDE.md`
+
+---
+
+**아테나 프로토콜이 활성화되었습니다.** 🏛️
