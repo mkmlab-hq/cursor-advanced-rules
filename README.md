@@ -182,11 +182,44 @@ python scripts/merge_rules.py
 
 ---
 
+## 🌐 Integration with MKM Life Ecosystem
+
+**Athena Brain Rules** is part of the MKM Life AI ecosystem:
+
+- **Jema API**: Korean medicine intelligence API - [Learn More](https://mkmlife.com/api/jema)
+- **Athena API**: Self-evolving memory API - [Learn More](https://mkmlife.com/api/athena)
+- **Athena Search**: Real-time web search with domain filtering
+- **B2B Private Box**: On-Premise LLM solutions for enterprises
+
+**Platform**: [MKM Life](https://mkmlife.com) | **Developer Portal**: [A-Code AI](https://a-codeai.com)
+
+---
+
+## 🚀 Latest Features (2025)
+
+- ✅ **Agentic RAG**: Intelligent query routing with LLM Router (Adaptive RAG)
+- ✅ **GraphRAG**: Knowledge graph-based search for domain expertise
+- ✅ **CRAG**: Corrective RAG for quality assurance and automatic fallback
+- ✅ **MCP Integration**: 15+ MCP servers for enhanced AI capabilities
+- ✅ **Self-Evolving Memory**: Pattern recognition, emotion tagging, neural network expansion
+
+---
+
+## 🔗 Related Projects
+
+- **[Autonomous Learning MCP](https://github.com/mkmlab-hq/autonomous-learning-mcp)** - Self-learning MCP server system with pattern detection and auto-rule generation
+- **[A-Code AI](https://a-codeai.com)** - Developer portal for Jema API & Athena API
+- **[MKM Life](https://mkmlife.com)** - Integrated health platform (Showroom + B2C)
+- **[Persona Diary](https://personadiary.com)** - AI-powered diary generation with emotion analysis
+
+---
+
 ## 📚 Documentation
 
 - [Full Documentation](https://docs.athenabrain.ai)
 - [Rules Guide](https://docs.athenabrain.ai/rules)
 - [Examples](https://docs.athenabrain.ai/examples)
+- [API Documentation](https://mkmlife.com/api)
 
 ---
 
@@ -215,10 +248,27 @@ Special thanks to:
 
 ## 📞 Support
 
-- 📧 Email: support@athenabrain.ai
-- 💬 Discord: Join our community
+- 📧 Email: support@mkmlife.com
+- 🌐 Developer Portal: [a-codeai.com](https://a-codeai.com)
+- 🏥 Platform: [mkmlife.com](https://mkmlife.com)
 - 🐛 Issues: [GitHub Issues](https://github.com/mkmlab-hq/cursor-advanced-rules/issues)
 - 📖 Docs: [Full Documentation](https://docs.athenabrain.ai)
+
+---
+
+## ™️ Trademark Notice
+
+**Registered Trademarks:**
+- "MKM Lab" ® - Registered trademark of MKM Lab
+- "Persona Diary" ® - Registered trademark of MKM Lab
+
+**Trademarks (In Use):**
+- "Athena Brain", "Athena API", "Jema API", "MKM Life", "A-Code AI" 
+  are trademarks of MKM Lab. All rights reserved.
+
+**Important**: This license does not grant permission to use the trade names, 
+trademarks, service marks, or product names of MKM Lab, except as required for 
+reasonable and customary use in describing the origin of the Work.
 
 ---
 
