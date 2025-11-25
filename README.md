@@ -205,9 +205,12 @@ python scripts/merge_rules.py
 
 ---
 
-## 🔗 Related Projects
+## 🔗 Part of Athena Ecosystem
 
-- **[Autonomous Learning MCP](https://github.com/mkmlab-hq/autonomous-learning-mcp)** - Self-learning MCP server system with pattern detection and auto-rule generation
+- **[Athena Brain Core](https://github.com/mkmlab-hq/athena-brain-core)** - Memory system with long-term storage
+- **[Athena MCP Servers](https://github.com/mkmlab-hq/athena-mcp-servers)** - Essential MCP servers for Cursor IDE
+- **[MKM12 Core Engine](https://github.com/mkmlab-hq/mkm12-core-engine)** - Constitutional analysis engine
+- **[ICD Unified Model](https://github.com/mkmlab-hq/icd-unified-model)** - Causal AI framework
 - **[A-Code AI](https://a-codeai.com)** - Developer portal for Jema API & Athena API
 - **[MKM Life](https://mkmlife.com)** - Integrated health platform (Showroom + B2C)
 - **[Persona Diary](https://personadiary.com)** - AI-powered diary generation with emotion analysis
