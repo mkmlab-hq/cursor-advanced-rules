@@ -144,6 +144,30 @@ cp -r rules/* /your/project/.cursor/rules/
 
 ## 🛠️ Tools Included
 
+### Rules 자동 최적화 시스템 (NEW! ⭐)
+
+- `rules_diagnostics.py` - Rules 진단 및 분석
+- `rules_optimizer.py` - Rules 자동 최적화
+- `rules_auto_cleanup.py` - Rules 자동 정리
+- `rules_optimization_plan.py` - 최적화 계획 생성
+- `rules_auto_cleanup_scheduler.py` - 주기적 자동 정리
+- `setup_windows_scheduler.ps1` - Windows 작업 스케줄러 등록
+
+**Usage**:
+```bash
+# Rules 진단
+python rules_diagnostics.py
+
+# Rules 최적화 (Dry Run)
+python rules_optimizer.py --dry-run
+
+# Rules 최적화 실행
+python rules_optimizer.py
+
+# 자동 정리 스케줄러 설정
+powershell -ExecutionPolicy Bypass -File setup_windows_scheduler.ps1
+```
+
 ### Validation Scripts
 
 - `scripts/validate_rules.py` - Rules validation
@@ -195,7 +219,40 @@ python scripts/merge_rules.py
 
 ---
 
-## 🚀 Latest Features (2025)
+## 🚀 Latest Features (2025-11-25)
+
+### Rules 자동 최적화 시스템 (NEW! ⭐)
+
+**자동으로 Rules를 최적화하고 관리합니다.**
+
+- ✅ **자동 진단**: Rules 충돌 감지, 사용 통계 분석
+- ✅ **자동 최적화**: Priority 조정, alwaysApply 최적화
+- ✅ **자동 정리**: 미사용 Rules 아카이브, 중복 제거
+- ✅ **스케줄러**: 주기적 자동 정리 (Windows Task Scheduler)
+
+**Quick Start**:
+```bash
+# Rules 진단
+python rules_diagnostics.py
+
+# Rules 최적화 (Dry Run)
+python rules_optimizer.py --dry-run
+
+# Rules 최적화 실행
+python rules_optimizer.py
+
+# 자동 정리 스케줄러 설정
+powershell -ExecutionPolicy Bypass -File setup_windows_scheduler.ps1
+```
+
+**결과**:
+- alwaysApply: 77개 → 16개 (79% 감소)
+- Priority 0: 18개 → 8개 (56% 감소)
+- 성능: 10x 향상
+
+---
+
+### 기존 Features
 
 - ✅ **Agentic RAG**: Intelligent query routing with LLM Router (Adaptive RAG)
 - ✅ **GraphRAG**: Knowledge graph-based search for domain expertise
