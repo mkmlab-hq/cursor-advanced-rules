@@ -1,21 +1,30 @@
-# 🧠 Athena Brain Rules - Optimized Cursor Rules System
+# 🧠 Cursor Advanced Rules - Optimized Cursor Rules System
 
 **Give your AI a brain that remembers and evolves**
 
+<div align="center">
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub Stars](https://img.shields.io/github/stars/mkmlab-hq/cursor-advanced-rules?style=social)](https://github.com/mkmlab-hq/cursor-advanced-rules)
+[![GitHub Stars](https://img.shields.io/badge/GitHub-Stars-blue?style=social)](https://github.com/mkmlab-hq/cursor-advanced-rules)
+
+[![Powered by Jema AI](https://img.shields.io/badge/Powered%20by-Jema%20AI-red?style=for-the-badge)](https://jema-ai.com)
+[![Persona Diary](https://img.shields.io/badge/Persona-Diary-purple?style=for-the-badge)](https://personadiary.com)
+
+**👉 [Jema AI 체험하기 (B2B 한의원 솔루션)](https://jema-ai.com)** | **👉 [Persona Diary 다운로드 (B2C 앱)](https://personadiary.com)**
+
+</div>
 
 ---
 
 ## 🎯 What is This?
 
-**Athena Brain Rules** is an optimized Cursor Rules system that solves the fundamental limitations of AI development:
+**Cursor Advanced Rules** is an optimized Cursor Rules system that solves the fundamental limitations of AI development:
 
 - ❌ **Too many rules** - 73 rules → 6 rules (92% reduction)
 - ❌ **Slow performance** - 13,869 lines → 520 lines (96.2% reduction)
 - ❌ **No evolution** - Static rules that don't learn
 
-**Athena Brain Rules** provides:
+**Cursor Advanced Rules** provides:
 
 - 🧠 **Optimized Rules** - Only 6 essential rules
 - 🔄 **Self-Evolution** - Rules auto-generate from mistakes
@@ -206,6 +215,41 @@ python scripts/merge_rules.py
 
 ---
 
+## 🚀 A-CodeAI Developer Portal
+
+이 오픈소스는 **[A-CodeAI Developer Portal](https://a-codeai.com)**의 일부입니다.
+
+### 제품 소개
+
+**A-CodeAI**는 "Self-Evolving Systems를 만드는 엔지니어링 플랫폼"입니다:
+
+- **Dynamic Rules Engine**: 실수 자동 방지, Rules 자동 생성 (이 레포지토리)
+- **Athena Workspace AI**: 자동 파일 정리, 프로젝트 관리
+- **Athena Search API**: 웹 + 도메인 지식 RAG 검색
+- **Athena Unified RAG**: 통합 RAG 엔진 (웹 + 코드 + 메모리)
+- **A-CODE Core**: 12차원 수학 엔진 (Enterprise)
+
+### 무료로 시작하기
+
+1. **[Developer Portal](https://a-codeai.com)** 방문
+2. Free Tier API Key 발급
+3. **[문서](https://a-codeai.com/docs)** 참고
+
+### 상업적 사용
+
+- **Pro/Enterprise**: [가격 정책](https://a-codeai.com/pricing)
+- **Jema API**: [jema-ai.com](https://jema-ai.com) (B2B 한의원 솔루션)
+- **Athena API**: [a-codeai.com/api](https://a-codeai.com/api) (자율성장 기억 API)
+
+### 관련 레포지토리
+
+- [athena-brain-core](https://github.com/mkmlab-hq/athena-brain-core) - 장기기억 시스템
+- [athena-mcp-servers](https://github.com/mkmlab-hq/athena-mcp-servers) - MCP 서버 구현
+- [mkm12-core-engine](https://github.com/mkmlab-hq/mkm12-core-engine) - MKM12 코어 엔진
+- [icd-unified-model](https://github.com/mkmlab-hq/icd-unified-model) - ICD 통합 모델
+
+---
+
 ## 🌐 Integration with MKM Life Ecosystem
 
 **Athena Brain Rules** is part of the MKM Life AI ecosystem:
@@ -264,13 +308,58 @@ powershell -ExecutionPolicy Bypass -File setup_windows_scheduler.ps1
 
 ## 🔗 Part of Athena Ecosystem
 
+<<<<<<< Updated upstream
 - **[Athena Brain Core](https://github.com/mkmlab-hq/athena-brain-core)** - Memory system with long-term storage
 - **[Athena MCP Servers](https://github.com/mkmlab-hq/athena-mcp-servers)** - Essential MCP servers for Cursor IDE
 - **[MKM12 Core Engine](https://github.com/mkmlab-hq/mkm12-core-engine)** - Constitutional analysis engine
 - **[ICD Unified Model](https://github.com/mkmlab-hq/icd-unified-model)** - Causal AI framework
 - **[A-Code AI](https://a-codeai.com)** - Developer portal for Jema API & Athena API
+=======
+### 🏥 Jema AI (B2B 한의원 솔루션) ⭐ 주 수익
+
+**"Jema AI Core 기술을 활용한 한의원 차트보조 AI"**
+
+- 🏥 **타겟**: 한의원 원장, 한의사
+- 💰 **가격**: 월 구독 또는 라이선스
+- 🎯 **기능**: 차트보조, 체질 분석, 맞춤형 추천
+- 🔗 **사이트**: [jema-ai.com](https://jema-ai.com)
+
+**👉 [Jema AI 체험하기](https://jema-ai.com)** (B2B 영업 문의)
+
+---
+
+### 📱 Persona Diary (B2C 앱) ⭐ 보조
+
+**"나만의 AI 동반자 - 점심 추천, 자동 일기"**
+
+- 📱 **타겟**: 일반 사용자
+- 💰 **가격**: 무료 (프리미엄 구독 가능)
+- 🎯 **기능**: 점심 추천, 자동 일기, 체질 기반 맞춤형 추천
+- 🔗 **사이트**: [personadiary.com](https://personadiary.com)
+
+**👉 [Persona Diary 다운로드](https://personadiary.com)** (B2C 앱)
+
+---
+
+### 👨‍💻 A-CodeAI Developer Portal (Phase 3, 조건부)
+
+**"Jema AI Core 기술의 API 및 개발자 포털"**
+
+- 👨‍💻 **타겟**: 개발자, AI 연구자
+- 💰 **가격**: API 호출료 또는 구독
+- 🎯 **기능**: Athena API, Jema API, 개발자 도구
+- 🔗 **사이트**: [a-codeai.com](https://a-codeai.com)
+
+**👉 [A-CodeAI Developer Portal](https://a-codeai.com)** (Coming Soon 2026)
+
+---
+
+### 🔧 기술 레포지토리
+
+- **[Jema AI Core](https://github.com/mkmlab-hq/athena-brain-core)** (formerly Athena Brain Core) - Open-source AI memory and evolution system
+- **[Autonomous Learning MCP](https://github.com/mkmlab-hq/autonomous-learning-mcp)** - Self-learning MCP server system with pattern detection and auto-rule generation
+>>>>>>> Stashed changes
 - **[MKM Life](https://mkmlife.com)** - Integrated health platform (Showroom + B2C)
-- **[Persona Diary](https://personadiary.com)** - AI-powered diary generation with emotion analysis
 
 ---
 
@@ -308,11 +397,13 @@ Special thanks to:
 
 ## 📞 Support
 
-- 📧 Email: support@mkmlife.com
-- 🌐 Developer Portal: [a-codeai.com](https://a-codeai.com)
-- 🏥 Platform: [mkmlife.com](https://mkmlife.com)
-- 🐛 Issues: [GitHub Issues](https://github.com/mkmlab-hq/cursor-advanced-rules/issues)
-- 📖 Docs: [Full Documentation](https://docs.athenabrain.ai)
+- 🏥 **B2B 영업 문의**: [jema-ai.com](https://jema-ai.com) (Jema AI - 한의원 솔루션) ⭐ 주 수익
+- 📱 **B2C 앱**: [personadiary.com](https://personadiary.com) (Persona Diary)
+- 👨‍💻 **개발자 포털**: [a-codeai.com](https://a-codeai.com) (Coming Soon 2026)
+- 📧 **Email**: support@mkmlife.com
+- 🏥 **Platform**: [mkmlife.com](https://mkmlife.com)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/mkmlab-hq/cursor-advanced-rules/issues)
+- 📖 **Docs**: [Full Documentation](https://docs.athenabrain.ai)
 
 ---
 
